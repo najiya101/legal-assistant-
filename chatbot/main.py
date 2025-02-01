@@ -1,12 +1,17 @@
-# main.py
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 from legal_terms import legal_terms  # Import the legal terms data
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Legal Terms Chatbot!"}
+# Set up Jinja2 template renderer
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/legal-question/{term}")
 async def get_legal_term(term: str):

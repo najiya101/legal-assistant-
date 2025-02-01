@@ -103,7 +103,7 @@
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 7px;
         }
 
         .btn {
@@ -118,6 +118,18 @@
 
         .btn:hover {
             background-color: #2980b9;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 18px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            width: 100%;
+            margin: 10px 0;
+            font-size: 16px;
+            box-sizing: border-box;
+            display:none;
         }
     </style>
 </head>
@@ -160,9 +172,13 @@
                 <div class="form-section">
                     <div class="form-group">
                         <label>Your Legal Query</label>
-                        <textarea class="form-control" rows="5"></textarea>
+                        <textarea class="form-control" rows="5"  id="query" placeholder="Query here.."></textarea>
                     </div>
-                    <button class="btn">Submit Query</button>
+                    <button onclick="getLegalTerm()" class="btn">Submit </button>
+                    <br>
+                    
+                    <div class="response" id="response"></div>
+
                 </div>
             </div>
         </div>
@@ -183,6 +199,24 @@
                 document.getElementById(this.dataset.page).classList.add('active');
             });
         });
+  
+        function getLegalTerm() {
+            const query = document.getElementById('query').value;
+            response.style.display = 'block'; 
+            fetch(`/legal-question/${query}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('response');
+                if (data.term) {
+                    resultDiv.innerHTML = `<b>${data.term}:</b> ${data.definition}`;
+                } else {
+                    resultDiv.innerHTML = `<b>Error:</b> ${data.error}`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('response').innerHTML = `<b>Error:</b> Could not fetch the result.`;
+            });
+        }
     </script>
 </body>
 </html>

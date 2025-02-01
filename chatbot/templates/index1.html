@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Terms Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #2C3E50;
+            text-align: center;
+        }
+        .chat-container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 80%;
+            margin: 10px 0;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Legal Terms Chatbot</h1>
+    <div class="chat-container">
+        <p>Enter a legal term to get its definition:</p>
+        <input type="text" id="query" placeholder="Enter a legal term" />
+        <button onclick="getLegalTerm()">Submit</button>
+        <div id="response"></div> <!-- Changed class to id -->
+    </div>
+
+    <script>
+        function getLegalTerm() {
+            const query = document.getElementById('query').value;
+            fetch(`/legal-question/${query}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('response');
+                if (data.term) {
+                    resultDiv.innerHTML = `<b>${data.term}:</b> ${data.definition}`;
+                } else {
+                    resultDiv.innerHTML = `<b>Error:</b> ${data.error}`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('response').innerHTML = `<b>Error:</b> Could not fetch the result.`;
+            });
+        }
+    </script>
+</body>
+</html>
