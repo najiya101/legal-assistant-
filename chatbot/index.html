@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Legal Terms Chatbot</title>
+</head>
+<body>
+  <h1>Ask me about legal terms!</h1>
+  <input type="text" id="query" placeholder="Enter a legal term" />
+  <button onclick="askQuestion()">Ask</button>
+  <p id="response"></p>
+
+  <script>
+    async function askQuestion() {
+      const query = document.getElementById('query').value;
+      const responseElement = document.getElementById('response');
+      const response = await fetch(`http://127.0.0.1:8005/legal-question/${query}`);
+      const data = await response.json();
+      responseElement.innerText = data.definition || data.error;
+    }
+  </script>
+</body>
+</html>
