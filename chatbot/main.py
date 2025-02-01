@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from legal_terms import legal_terms  # Import the legal terms data
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="/home/najiya/legal-assistant-/chatbot/static"), name="static")
 
 # Set up Jinja2 template renderer
 templates = Jinja2Templates(directory="templates")

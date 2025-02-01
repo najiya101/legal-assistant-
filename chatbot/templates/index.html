@@ -28,7 +28,6 @@
             height: 100vh;
         }
 
-        /* Navigation Sidebar */
         .sidebar {
             width: 250px;
             background-color: var(--primary-color);
@@ -65,7 +64,6 @@
             background-color: var(--accent-color);
         }
 
-        /* Main Content Area */
         .main-content {
             flex-grow: 1;
             overflow-y: auto;
@@ -87,7 +85,6 @@
             to { opacity: 1; }
         }
 
-        /* Form Styling */
         .form-section {
             background-color: var(--background-light);
             border-radius: 8px;
@@ -119,6 +116,7 @@
         .btn:hover {
             background-color: #2980b9;
         }
+
         .response {
             margin-top: 20px;
             padding: 18px;
@@ -129,14 +127,22 @@
             margin: 10px 0;
             font-size: 16px;
             box-sizing: border-box;
-            display:none;
+            display: none;
+        }
+
+        /* New image styling */
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 100px; /* Adjust size as needed */
         }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- Sidebar Navigation -->
         <div class="sidebar">
+            <!-- Add image above the title -->
+            <img src="/static/images/img.png" alt="Logo" class="logo">
             <h2>Legal Assistant</h2>
             <ul class="sidebar-nav">
                 <li><a href="#" class="nav-link active" data-page="document-upload">Document Upload</a></li>
@@ -172,13 +178,11 @@
                 <div class="form-section">
                     <div class="form-group">
                         <label>Your Legal Query</label>
-                        <textarea class="form-control" rows="5"  id="query" placeholder="Query here.."></textarea>
+                        <textarea class="form-control" rows="5" id="query" placeholder="Query here.."></textarea>
                     </div>
                     <button onclick="getLegalTerm()" class="btn">Submit </button>
                     <br>
-                    
                     <div class="response" id="response"></div>
-
                 </div>
             </div>
         </div>
@@ -190,32 +194,30 @@
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Remove active states
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
                 
-                // Add active state to clicked link and corresponding page
                 this.classList.add('active');
                 document.getElementById(this.dataset.page).classList.add('active');
             });
         });
-  
+
         function getLegalTerm() {
             const query = document.getElementById('query').value;
-            response.style.display = 'block'; 
+            document.getElementById('response').style.display = 'block'; 
             fetch(`/legal-question/${query}`)
-            .then(response => response.json())
-            .then(data => {
-                const resultDiv = document.getElementById('response');
-                if (data.term) {
-                    resultDiv.innerHTML = `<b>${data.term}:</b> ${data.definition}`;
-                } else {
-                    resultDiv.innerHTML = `<b>Error:</b> ${data.error}`;
-                }
-            })
-            .catch(error => {
-                document.getElementById('response').innerHTML = `<b>Error:</b> Could not fetch the result.`;
-            });
+                .then(response => response.json())
+                .then(data => {
+                    const resultDiv = document.getElementById('response');
+                    if (data.term) {
+                        resultDiv.innerHTML = `<b>${data.term}:</b> ${data.definition}`;
+                    } else {
+                        resultDiv.innerHTML = `<b>Error:</b> ${data.error}`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('response').innerHTML = `<b>Error:</b> Could not fetch the result.`;
+                });
         }
     </script>
 </body>
