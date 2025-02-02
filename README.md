@@ -71,6 +71,9 @@ The Legal Document Assistant utilizing InLegalBERT significantly enhances the ca
   <img src="https://github.com/user-attachments/assets/aa78c8b2-71ae-4873-95dd-5b8c516197f6" height="500"/>
 
 </div>
+##video
+
+link: https://drive.google.com/drive/folders/1DiI-kot_28L-Gb5ycKQHc7G6w4bltQPd
 
 **Team Contributions**<br>
 Najiya Nazrin C N : BEERT model fine tuning & document summarization <br>
