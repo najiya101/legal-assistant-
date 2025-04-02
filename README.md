@@ -76,6 +76,6 @@ The Legal Document Assistant utilizing InLegalBERT significantly enhances the ca
 link: https://drive.google.com/drive/folders/1DiI-kot_28L-Gb5ycKQHc7G6w4bltQPd
 
 **Team Contributions**<br>
-Najiya Nazrin C N : BEERT model fine tuning & document summarization <br>
+Najiya Nazrin C N : BERT model fine tuning & document summarization <br>
 Bineesha K P: Backend developer(API development)<br>
 Janeesha Devi R: UI/UX Design <br>
